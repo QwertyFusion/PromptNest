@@ -5,10 +5,21 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
 
-const UpdatePrompt = () => {
-  const router = useRouter();
+const usePromptId = () => {
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
+
+  return promptId;
+};
+
+const PromptIdWrapper = () => {
+  const promptId = usePromptId();
+
+  return <UpdatePrompt promptId={promptId} />;
+};
+
+const UpdatePrompt = ({ promptId }) => {
+  const router = useRouter();
 
   const [post, setPost] = useState({ prompt: "", tag: "", });
   const [submitting, setIsSubmitting] = useState(false);
@@ -65,4 +76,4 @@ const UpdatePrompt = () => {
   );
 };
 
-export default UpdatePrompt;
+export default PromptIdWrapper;
